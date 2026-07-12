@@ -11,14 +11,13 @@ export const siteConfig = {
   },
 
   // Give every artist their own Firebase project whenever possible.
-  // The web-app configuration below is intentionally blank in this template.
   firebase: {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: ""
+    apiKey: "AIzaSyCm665mCq1T65nYgoQbsxLLKKnbs4cwHwo",
+    authDomain: "rem404archive-01.firebaseapp.com",
+    projectId: "rem404archive-01",
+    storageBucket: "rem404archive-01.firebasestorage.app",
+    messagingSenderId: "533609469013",
+    appId: "1:533609469013:web:17b0b3c8f82f0259f9b0dc"
   },
 
   // Separate collection names keep data isolated if several artists share a
