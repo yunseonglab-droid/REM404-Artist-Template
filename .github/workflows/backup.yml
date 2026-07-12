@@ -1,0 +1,32 @@
+name: Weekly Artist Archive Backup
+
+on:
+  schedule:
+    - cron: "0 18 * * 0"
+      timezone: "Asia/Seoul"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create backup zip
+        run: |
+          mkdir -p backup
+          zip -r backup/artist-archive-backup-${{ github.run_number }}.zip . \
+            -x ".git/*" "backup/*" ".DS_Store"
+
+      - name: Upload backup artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: artist-archive-backup-${{ github.run_number }}
+          path: backup/*.zip
+          retention-days: 30
+          if-no-files-found: error

@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>ART ARCHIVE</title>
+
+<style>
+html,body{
+  margin:0;
+  width:100%;
+  min-height:100%;
+  background:#fff;
+  color:#111;
+  font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;
+}
+
+body{
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px;
+  box-sizing:border-box;
+}
+  
+main{
+  width:100%;
+  max-width:420px;
+}
+  
+#languageSelector{
+  display:flex;
+  justify-content:flex-end;
+  gap:12px;
+  margin-bottom:28px;
+}
+
+#languageSelector button{
+  border:none;
+  background:none;
+  padding:0;
+  color:#9a9a9a;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.08em;
+  cursor:pointer;
+  transition:.2s;
+}
+
+#languageSelector button.active{
+  color:#111;
+}
+  
+.label{
+  font-size:12px;
+  letter-spacing:.12em;
+  color:#888;
+  margin-bottom:34px;
+}
+
+h1{
+  font-size:32px;
+  line-height:1.25;
+  margin:0 0 30px;
+  font-weight:850;
+  letter-spacing:-.05em;
+}
+
+.text{
+  font-size:15px;
+  line-height:1.85;
+  color:#333;
+  margin-bottom:34px;
+}
+
+.notice{
+  font-size:13px;
+  line-height:1.7;
+  color:#777;
+  margin-bottom:34px;
+}
+
+#startBtn{
+  display:block;
+  text-align:center;
+  padding:16px 20px;
+  border-radius:999px;
+  background:#111;
+  color:#fff;
+  text-decoration:none;
+  font-size:16px;
+  font-weight:850;
+  box-shadow:0 10px 30px rgba(0,0,0,.12);
+  transition:.2s;
+}
+
+#startBtn:active{
+  transform:scale(.98);
+}
+
+/* ---------- Transition ---------- */
+
+#transition{
+  position:fixed;
+  inset:0;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .9s ease;
+  z-index:99999;
+}
+
+#transition.show{
+  opacity:1;
+}
+
+#transitionText{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  transform:translateY(-12px);
+  transition:
+    opacity .55s cubic-bezier(.22,1,.36,1) .18s,
+    transform .55s cubic-bezier(.22,1,.36,1) .18s;
+}
+
+#transition.show #transitionText{
+  opacity:1;
+  transform:translateY(0);
+}
+
+#transitionText .title{
+  font-size:12px;
+  letter-spacing:.18em;
+  color:#8a8a8a;
+  margin-bottom:14px;
+}
+
+#transitionText .subtitle{
+  font-size:18px;
+  font-weight:700;
+  letter-spacing:-.03em;
+  color:#222;
+}
+  /* ===== Exhibition intro ===== */
+
+#brandIntro{
+  position:fixed;
+  inset:0;
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:100000;
+  opacity:1;
+  transition:opacity 1.2s ease;
+}
+
+#brandIntro.hide{
+  opacity:0;
+  pointer-events:none;
+}
+#brandIntroVideo{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  background:#000;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  z-index:1;
+}
+
+#brandIntroVideo.show{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+  
+#enterIntro{
+  position:fixed;
+  top:50%;
+  left:50%;
+  z-index:100002;
+
+  min-width:180px;
+  height:52px;
+  padding:0 26px;
+
+  transform:translate(-50%,-50%);
+
+  border:1px solid rgba(255,255,255,.45);
+  border-radius:999px;
+
+  background:#000;
+  color:#fff;
+
+  font-family:inherit;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.18em;
+  white-space:nowrap;
+
+  appearance:none;
+  -webkit-appearance:none;
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  touch-action:manipulation;
+  cursor:pointer;
+}
+
+#enterIntro:active{
+  transform:translate(-50%,-50%) scale(.98);
+}
+/* ===== Added : Archive Access ===== */
+
+#archiveAccess{
+  position:fixed;
+  left:50%;
+  bottom:max(24px, env(safe-area-inset-bottom));
+  z-index:100002;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  min-width:132px;
+  min-height:44px;
+  padding:0 14px;
+
+  transform:translateX(-50%);
+
+  color:rgba(255,255,255,.48);
+  text-decoration:none;
+
+  font-family:inherit;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.14em;
+  white-space:nowrap;
+
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  transition:color .2s ease;
+}
+
+#archiveAccess:active{
+  color:#fff;
+}
+
+/* ===== End : Archive Access ===== */
+/* ===== End ===== */
+  
+</style>
+</head>
+
+<body>
+  <!-- ===== Exhibition intro START ===== -->
+
+<div id="brandIntro">
+
+  <video id="brandIntroVideo" preload="none" playsinline>
+    <source id="brandIntroSource" type="video/mp4">
+  </video>
+
+  <button id="enterIntro">
+    ENTER EXPERIENCE
+  </button>
+<!-- ===== Added : Archive Access ===== -->
+
+<a href="./admin.html" id="archiveAccess">
+  Archive Access
+</a>
+
+<!-- ===== End : Archive Access ===== -->
+</div>
+
+<!-- ===== Exhibition intro END ===== -->
+  
+<main>
+  <div id="languageSelector">
+  <button type="button" data-lang="ko">KR</button>
+  <button type="button" data-lang="en">EN</button>
+</div>
+<div class="label" id="versionLabel">ART ARCHIVE v1.0</div>
+
+<h1 id="landingTitle">
+  작품 제목
+</h1>
+
+<div class="text" id="landingText">
+  작품을 카메라로 비추면,<br>
+  새로운 장면이 천천히 나타납니다.
+</div>
+
+<div class="notice" id="landingNotice">
+  이 경험은 스마트폰 카메라를 사용합니다.<br>
+  별도의 앱 설치는 필요하지 않습니다.
+</div>
+
+<a href="./ar.html" id="startBtn">작품 경험 시작하기</a>
+</main>
+
+<div id="transition">
+  <div id="transitionText">
+   <div class="title" id="transitionVersion">ART ARCHIVE v1.0</div>
+    <div class="subtitle" id="transitionSubtitle">작품에 접근하는 중...</div>
+  </div>
+</div>
+
+<script type="module">
+import { getText, getLanguage, setLanguage } from "./js/lang/language.js";
+import { siteConfig } from "./js/site-config.js";
+import { saveUsageLog } from "./js/firebase.js";
+  
+function applyLandingText() {
+  const t = getText();
+
+  document.title = t.landing.pageTitle;
+  document.documentElement.lang = getLanguage();
+
+  document.getElementById("versionLabel").textContent = t.landing.version;
+  document.getElementById("landingTitle").innerHTML = t.landing.title;
+  document.getElementById("landingText").innerHTML = t.landing.text;
+  document.getElementById("landingNotice").innerHTML = t.landing.notice;
+  document.getElementById("startBtn").textContent = t.landing.startButton;
+  document.getElementById("transitionVersion").textContent = t.landing.version;
+  document.getElementById("transitionSubtitle").textContent = t.landing.loading;
+
+  document.querySelectorAll("#languageSelector button").forEach((button) => {
+    button.classList.toggle("active", button.dataset.lang === getLanguage());
+  });
+}
+
+document.querySelectorAll("#languageSelector button").forEach((button) => {
+  button.addEventListener("click", () => {
+    setLanguage(button.dataset.lang);
+    applyLandingText();
+  });
+});
+
+applyLandingText();
+
+saveUsageLog("landing_visit", {
+  page: "index.html"
+}).catch(() => {});
+
+let adminTapCount = 0;
+let adminTapTimer = null;
+
+const landingTitle = document.getElementById("landingTitle");
+
+if (landingTitle) {
+  landingTitle.addEventListener("click", () => {
+    adminTapCount += 1;
+
+    clearTimeout(adminTapTimer);
+
+    adminTapTimer = setTimeout(() => {
+      adminTapCount = 0;
+    }, 1200);
+
+    if (adminTapCount >= 3) {
+      adminTapCount = 0;
+      window.location.href = "./admin.html";
+    }
+  });
+}
+  /* ===== Exhibition intro START ===== */
+
+let brandIntro = document.getElementById("brandIntro");
+const brandIntroVideo = document.getElementById("brandIntroVideo");
+const brandIntroSource = document.getElementById("brandIntroSource");
+const enterIntro = document.getElementById("enterIntro");
+const archiveAccess = document.getElementById("archiveAccess");
+
+// ===== Added : Skip Intro for Admin Return =====
+
+const skipIntro =
+  !siteConfig.intro.enabled ||
+  new URLSearchParams(window.location.search).get("skipIntro") === "1";
+
+if (skipIntro && brandIntro) {
+  brandIntro.remove();
+
+  // 메모리에서 참조 제거
+  brandIntro = null;
+}
+
+// ===== End : Skip Intro for Admin Return =====
+function closeIntro() {
+
+  if (!brandIntro) return;
+
+  brandIntro.classList.add("hide");
+
+  setTimeout(() => {
+    brandIntro.remove();
+    brandIntro = null;
+  }, 1200);
+
+}
+
+if (!skipIntro && brandIntro && brandIntroVideo && enterIntro) {
+  if (brandIntroSource) {
+    brandIntroSource.src = siteConfig.intro.video;
+    brandIntroVideo.load();
+  }
+
+  enterIntro.addEventListener("click", async () => {
+
+    enterIntro.style.display = "none";
+    if (archiveAccess) {
+  archiveAccess.style.display = "none";
+}
+
+    brandIntroVideo.classList.add("show");
+
+    try {
+
+      await brandIntroVideo.play();
+
+    } catch (e) {
+
+      console.error(e);
+
+      closeIntro();
+
+    }
+
+  });
+
+  brandIntroVideo.addEventListener("ended", () => {
+
+    closeIntro();
+
+  });
+
+}
+
+/* ===== Exhibition intro END ===== */
+  
+const startBtn = document.getElementById("startBtn");
+const transition = document.getElementById("transition");
+
+startBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  transition.classList.add("show");
+
+  setTimeout(() => {
+    window.location.href = `./ar.html?lang=${getLanguage()}`;
+  }, 900);
+});
+</script>

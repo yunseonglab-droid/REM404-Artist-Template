@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>ART ARCHIVE Statistics</title>
+
+<link rel="stylesheet" href="./css/debug.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <a href="./admin.html" class="back-link">← Admin으로 돌아가기</a>
+
+  <header class="header">
+    <div class="label" data-site-brand>ART ARCHIVE</div>
+
+    <h1>
+      Archive Statistics
+    </h1>
+
+    <div class="version">
+      Current Build
+      <strong data-site-version>v1.0</strong>
+    </div>
+  </header>
+<div class="summary-card">
+
+  <div class="summary-header">
+    Archive Summary
+  </div>
+
+  <div class="summary-grid stats-grid">
+
+    <div class="summary-item">
+      <div class="summary-label">Total Memories</div>
+      <div class="summary-value" id="totalMemories">0</div>
+    </div>
+
+    <div class="summary-item">
+      <div class="summary-label">Korean</div>
+      <div class="summary-value" id="koCount">0</div>
+    </div>
+
+    <div class="summary-item">
+      <div class="summary-label">English</div>
+      <div class="summary-value" id="enCount">0</div>
+    </div>
+
+    <div class="summary-item">
+      <div class="summary-label">Unknown</div>
+      <div class="summary-value" id="unknownCount">0</div>
+    </div>
+
+    <div class="summary-item">
+      <div class="summary-label">Usage Logs</div>
+      <div class="summary-value" id="usageCount">0</div>
+    </div>
+
+    <div class="summary-item">
+      <div class="summary-label">Status</div>
+      <div class="summary-value summary-live">LIVE</div>
+    </div>
+
+  </div>
+
+</div>
+
+  <section>
+    <h2>Recent Usage</h2>
+
+    <div id="usageList">
+  <div class="empty">
+    아직 사용 기록이 없습니다.
+  </div>
+</div>
+
+<div class="pagination" id="usagePagination">
+  <button class="page-btn" id="prevPageBtn">‹</button>
+  <span id="pageInfo">1 / 1</span>
+  <button class="page-btn" id="nextPageBtn">›</button>
+</div>
+    
+  </section>
+
+</div>
+
+<script type="module" src="./js/stats.js"></script>
+<script type="module" src="./js/page-brand.js"></script>
+
+</body>
+</html>

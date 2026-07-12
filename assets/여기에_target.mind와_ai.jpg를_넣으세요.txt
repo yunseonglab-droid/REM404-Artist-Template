@@ -1,0 +1,1 @@
+assets 폴더에 target.mind와 ai.jpg를 넣으세요.

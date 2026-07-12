@@ -1,0 +1,81 @@
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  background:#fff;
+  color:#111;
+  font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;
+}
+
+body{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px;
+  box-sizing:border-box;
+}
+
+main{
+  width:100%;
+  max-width:420px;
+}
+
+.label{
+  font-size:12px;
+  letter-spacing:.16em;
+  color:#888;
+  margin-bottom:34px;
+}
+
+h1{
+  font-size:32px;
+  line-height:1.25;
+  margin:0 0 28px;
+  font-weight:850;
+  letter-spacing:-.05em;
+}
+
+.text{
+  min-height:58px;
+  font-size:15px;
+  line-height:1.8;
+  color:#555;
+  margin-bottom:28px;
+}
+
+.line{
+  width:100%;
+  height:1px;
+  background:rgba(17,17,17,.12);
+  overflow:hidden;
+  margin-bottom:34px;
+}
+
+.line div{
+  width:42%;
+  height:100%;
+  background:rgba(17,17,17,.55);
+  animation:move 1.4s ease-in-out infinite;
+}
+
+@keyframes move{
+  0%{transform:translateX(-110%);}
+  100%{transform:translateX(260%);}
+}
+
+#cameraStartBtn{
+  width:100%;
+  height:58px;
+  border:0;
+  border-radius:999px;
+  background:#111;
+  color:#fff;
+  font-size:16px;
+  font-weight:850;
+  font-family:inherit;
+  box-shadow:0 10px 30px rgba(0,0,0,.12);
+}
+
+#cameraStartBtn:active{
+  transform:scale(.98);
+}

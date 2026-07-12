@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>ART ARCHIVE Debug Dashboard</title>
+
+<link rel="stylesheet" href="./css/debug.css">
+</head>
+
+<body>
+
+<div class="container">
+  
+<a href="./admin.html" class="back-link">← Admin으로 돌아가기</a>
+  
+  <header class="header">
+    <div class="label" data-site-brand>
+      ART ARCHIVE
+    </div>
+
+    <h1>
+      Debug Dashboard
+    </h1>
+
+    <div class="version">
+  Current Build · <strong data-site-version>v1.0</strong>
+    </div>
+  </header>
+
+
+<div class="summary-card">
+
+  <div class="summary-header">
+    Debug Summary
+  </div>
+
+  <div class="summary-grid">
+
+    <div class="summary-item">
+      <div class="summary-label">Open Errors</div>
+      <div class="summary-value" id="openCount">0</div>
+    </div>
+
+    <div class="summary-item">
+      <div class="summary-label">Solved</div>
+      <div class="summary-value" id="solvedCount">0</div>
+    </div>
+
+    <div class="summary-item">
+      <div class="summary-label">Total Logs</div>
+      <div class="summary-value" id="totalCount">0</div>
+    </div>
+
+  </div>
+
+</div>
+
+
+  <div class="debug-actions">
+  <button id="refreshBtn">새로고침</button>
+</div>
+
+  <section>
+
+    <h2>
+      Error Logs
+    </h2>
+
+    <div id="logList">
+
+      <div class="empty">
+        아직 기록된 오류가 없습니다.
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+<script type="module" src="./js/debug.js"></script>
+<script type="module" src="./js/page-brand.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>ART ARCHIVE Admin</title>
+
+<style>
+html, body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  background: #fff;
+  color: #111;
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans KR", sans-serif;
+}
+
+body {
+  padding: 28px;
+  box-sizing: border-box;
+}
+
+main {
+  width: 100%;
+  max-width: 420px;
+  min-height: calc(100vh - 56px);
+  margin: 0 auto;
+  padding: 42px 0 48px;
+  box-sizing: border-box;
+}
+
+/* ===== Added : Admin Auth Optical Center ===== */
+
+body:has(#authScreen[style*="display: block"]) main,
+body:has(#authScreen:not([style])) main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 0;
+  padding-bottom: 80px;
+}
+
+/* ===== End : Admin Auth Optical Center ===== */
+.label {
+  font-size: 12px;
+  letter-spacing: .16em;
+  color: #888;
+  margin-bottom: 28px;
+}
+
+h1 {
+  font-size: 34px;
+  line-height: 1.18;
+  margin: 0 0 18px;
+  font-weight: 850;
+  letter-spacing: -.05em;
+}
+
+.desc {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #666;
+  margin-bottom: 34px;
+}
+
+.version {
+  padding: 16px;
+  border-radius: 18px;
+  background: #fafafa;
+  border: 1px solid rgba(17,17,17,.1);
+  margin-bottom: 28px;
+}
+
+.version .small {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 6px;
+}
+
+.version .big {
+  font-size: 20px;
+  font-weight: 850;
+  letter-spacing: -.04em;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.menu a {
+  display: block;
+  padding: 18px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(17,17,17,.1);
+  color: #111;
+  text-decoration: none;
+  background: #fff;
+  box-shadow: 0 10px 28px rgba(0,0,0,.05);
+  transition: transform .18s ease, background .18s ease;
+}
+
+.menu a:active {
+  transform: scale(.98);
+}
+
+.menu-title {
+  font-size: 16px;
+  font-weight: 850;
+  letter-spacing: -.04em;
+  margin-bottom: 6px;
+}
+
+.menu-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #777;
+}
+
+.disabled {
+  opacity: .42;
+  pointer-events: none;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 32px;
+  color: #777;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+#authScreen {
+  display: block;
+}
+
+#adminScreen {
+  display: none;
+}
+
+.auth-box {
+  margin-top: 32px;
+}
+
+#adminPassword {
+  width: 100%;
+  height: 56px;
+  box-sizing: border-box;
+  border: 1px solid rgba(17,17,17,.14);
+  border-radius: 18px;
+  padding: 0 16px;
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+  background: #fafafa;
+  margin-bottom: 14px;
+}
+
+#adminPassword:focus {
+  border-color: rgba(17,17,17,.5);
+  background: #fff;
+}
+
+#loginBtn {
+  width: 100%;
+  height: 56px;
+  border: 0;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  font-size: 15px;
+  font-family: inherit;
+  font-weight: 850;
+  box-shadow: 0 10px 30px rgba(0,0,0,.12);
+}
+
+#loginBtn:active {
+  transform: scale(.98);
+}
+
+.auth-error {
+  display: none;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #888;
+  line-height: 1.6;
+}
+  /* ==========================================================
+   Archive Overview
+========================================================== */
+
+.overview-card{
+  margin:32px 0;
+  border:1px solid rgba(17,17,17,.08);
+  border-radius:22px;
+  background:#fff;
+  overflow:hidden;
+  box-shadow:0 10px 32px rgba(0,0,0,.05);
+}
+
+.overview-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:18px 24px;
+  border-bottom:1px solid rgba(17,17,17,.08);
+}
+
+.overview-title{
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#777;
+}
+
+.overview-version{
+  font-size:12px;
+  font-weight:700;
+  color:#888;
+  white-space:nowrap;
+}
+.overview-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+}
+
+.overview-item{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  padding:26px 16px;
+  text-align:center;
+}
+
+.overview-item:not(:last-child){
+  border-right:1px solid rgba(17,17,17,.06);
+}
+
+.overview-label{
+  font-size:12px;
+  color:#888;
+  margin-bottom:12px;
+}
+
+.overview-value{
+  font-size:30px;
+  font-weight:850;
+  letter-spacing:-.05em;
+  color:#111;
+}
+
+@media(max-width:520px){
+  .overview-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .overview-item:nth-child(1),
+  .overview-item:nth-child(2){
+    border-bottom:1px solid rgba(17,17,17,.06);
+  }
+
+  .overview-item:nth-child(2){
+    border-right:none;
+  }
+}
+  
+</style>
+</head>
+
+<body>
+<main>
+
+  <a href="./index.html?skipIntro=1" class="back-link">← 작품으로 돌아가기</a>
+  
+  <section id="authScreen">
+    <div class="label" data-site-brand>ART ARCHIVE</div>
+
+    <h1>
+      Admin<br>
+      Authentication
+    </h1>
+
+    <div class="desc">
+      이 작품 아카이브의 작가용 관리 페이지입니다.<br>
+      관리자 인증 후 접근할 수 있습니다.
+    </div>
+
+    <div class="auth-box">
+      <input
+        id="adminPassword"
+        type="password"
+        placeholder="Admin password"
+        autocomplete="off"
+      >
+
+      <button id="loginBtn">관리자 인증</button>
+
+      <div class="auth-error" id="authError">
+        인증에 실패했습니다.
+      </div>
+    </div>
+  </section>
+
+  <section id="adminScreen">
+    <div class="label" data-site-brand>ART ARCHIVE</div>
+
+    <h1>
+      ART ARCHIVE<br>
+      Control Room
+    </h1>
+
+    <div class="desc">
+      오류 기록, 버전 상태, 아카이브 운영 정보를 확인하는 작가용 관리 페이지입니다.
+    </div>
+    
+<div class="overview-card">
+
+  <div class="overview-head">
+
+    <div class="overview-title">
+      Archive Overview
+    </div>
+
+    <div class="overview-version">
+      Version · <span data-site-version>v1.0</span>
+    </div>
+
+  </div>
+
+  <div class="overview-grid">
+
+    <div class="overview-item">
+      <div class="overview-label">Memory</div>
+      <div class="overview-value" id="overviewMemory">--</div>
+    </div>
+
+    <div class="overview-item">
+      <div class="overview-label">Korean</div>
+      <div class="overview-value" id="overviewKo">--</div>
+    </div>
+
+    <div class="overview-item">
+      <div class="overview-label">English</div>
+      <div class="overview-value" id="overviewEn">--</div>
+    </div>
+
+    <div class="overview-item">
+      <div class="overview-label">Errors</div>
+      <div class="overview-value" id="overviewErrors">--</div>
+    </div>
+
+  </div>
+
+</div>
+    
+  <nav class="menu">
+  <a href="./archive-manager.html">
+    <div class="menu-title">Memory Control</div>
+    <div class="menu-desc">
+      저장된 기억을 검색, 수정, 삭제하고 휴지통을 관리합니다.
+    </div>
+  </a>
+
+  <a href="./stats.html">
+    <div class="menu-title">Archive Status</div>
+    <div class="menu-desc">
+      기억 수, 언어 비율, 사용 기록을 확인합니다.
+    </div>
+  </a>
+
+  <a href="./debug.html">
+    <div class="menu-title">Error Logs</div>
+    <div class="menu-desc">
+      오류 로그와 발생 환경을 확인합니다.
+    </div>
+  </a>
+
+  <a href="./updates.html">
+    <div class="menu-title">Update History</div>
+    <div class="menu-desc">
+      버전별 업데이트 기록을 관리합니다.
+    </div>
+  </a>
+</nav>
+  </section>
+
+</main>
+
+<script type="module">
+import { getAllMemories, getDebugLogs } from "./js/firebase.js";
+import { siteConfig } from "./js/site-config.js";
+  
+const ADMIN_PASSWORD = siteConfig.adminPassword;
+const AUTH_STORAGE_KEY = `${siteConfig.siteId}:adminAuth`;
+
+const authScreen = document.getElementById("authScreen");
+const adminScreen = document.getElementById("adminScreen");
+const passwordInput = document.getElementById("adminPassword");
+const loginBtn = document.getElementById("loginBtn");
+const authError = document.getElementById("authError");
+const overviewMemory = document.getElementById("overviewMemory");
+const overviewKo = document.getElementById("overviewKo");
+const overviewEn = document.getElementById("overviewEn");
+const overviewErrors = document.getElementById("overviewErrors");
+
+document.title = `${siteConfig.brand} Admin`;
+document.querySelectorAll("[data-site-brand]").forEach((element) => {
+  element.textContent = siteConfig.brand;
+});
+document.querySelectorAll("[data-site-version]").forEach((element) => {
+  element.textContent = siteConfig.version;
+});
+
+async function unlockAdmin() {
+
+  sessionStorage.setItem(AUTH_STORAGE_KEY, "true");
+
+  authScreen.style.display = "none";
+  adminScreen.style.display = "block";
+
+  await loadOverview();
+
+}
+  async function loadOverview() {
+
+  const memories = await getAllMemories();
+
+  overviewMemory.textContent = memories.length;
+
+  const ko = memories.filter(m => m.language === "ko").length;
+  const en = memories.filter(m => m.language === "en").length;
+
+  const total = memories.length || 1;
+
+  overviewKo.textContent =
+    Math.round((ko / total) * 100) + "%";
+
+  overviewEn.textContent =
+    Math.round((en / total) * 100) + "%";
+
+    const debugLogs = await getDebugLogs();
+overviewErrors.textContent = debugLogs.length;
+}
+
+if (sessionStorage.getItem(AUTH_STORAGE_KEY) === "true" && ADMIN_PASSWORD) {
+  unlockAdmin();
+}
+
+loginBtn.addEventListener("click", () => {
+  if (!ADMIN_PASSWORD) {
+    authError.textContent = "js/site-config.js에 관리자 비밀번호를 설정한 뒤 사용하세요.";
+    authError.style.display = "block";
+  } else if (passwordInput.value === ADMIN_PASSWORD) {
+    unlockAdmin();
+  } else {
+    authError.style.display = "block";
+    passwordInput.value = "";
+    passwordInput.focus();
+  }
+});
+
+passwordInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    loginBtn.click();
+  }
+});
+</script>
+
+</body>
+</html>

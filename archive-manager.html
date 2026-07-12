@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>ART ARCHIVE Manager</title>
+
+<link rel="stylesheet" href="./css/debug.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <a href="./admin.html" class="back-link">← Admin으로 돌아가기</a>
+
+  <header class="header">
+    <div class="label" data-site-brand>ART ARCHIVE</div>
+
+    <h1>
+      Archive Manager
+    </h1>
+
+    <div class="version">
+      Memory Control
+      <strong>저장된 기억 관리</strong>
+    </div>
+  </header>
+
+  <section class="actions">
+    <input
+      id="memorySearchInput"
+      class="manager-search"
+      type="search"
+      placeholder="기억 검색"
+      autocomplete="off"
+    >
+    
+<div class="manager-tabs">
+  <button id="refreshBtn">새로고침</button>
+  <button id="showTrashBtn">휴지통</button>
+</div>
+    
+  </section>
+
+  <section>
+    <h2>Stored Memories</h2>
+
+    <div id="memoryList">
+      <div class="empty">
+        기억을 불러오는 중입니다.
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script type="module" src="./js/archiveManager.js"></script>
+<script type="module" src="./js/page-brand.js"></script>
+
+</body>
+</html>
