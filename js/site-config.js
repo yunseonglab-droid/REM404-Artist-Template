@@ -32,7 +32,7 @@ export const siteConfig = {
 
   // This is only a light UI gate, not real security. Protect Firestore with
   // Firebase Authentication and Security Rules before a public exhibition.
-  adminPassword: "",
+  adminPassword: "2489",
 
   // Set enabled to true and add ./video/intro.mp4 after replacing the sample.
   intro: {
