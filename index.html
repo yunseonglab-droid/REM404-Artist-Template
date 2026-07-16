@@ -155,12 +155,16 @@ h1{
   position:fixed;
   inset:0;
   background:#000;
-  display:flex;
+  display:none;
   align-items:center;
   justify-content:center;
   z-index:100000;
   opacity:1;
   transition:opacity 1.2s ease;
+}
+
+#brandIntro.enabled{
+  display:flex;
 }
 
 #brandIntro.hide{
@@ -412,6 +416,8 @@ function closeIntro() {
 }
 
 if (!skipIntro && brandIntro && brandIntroVideo && enterIntro) {
+  brandIntro.classList.add("enabled");
+
   if (brandIntroSource) {
     brandIntroSource.src = siteConfig.intro.video;
     brandIntroVideo.load();
