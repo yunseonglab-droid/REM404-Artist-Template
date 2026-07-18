@@ -25,7 +25,24 @@ and data.
    artist's work.
 4. Edit `js/lang/ko.js` and `js/lang/en.js` if the exhibition needs its own
    curatorial language.
-5. Deploy the folder to GitHub Pages and test from the final printed works.
+5. Deploy the folder to Firebase Hosting and test from the final printed works.
+
+## Firebase Hosting
+
+This repository is connected to the Firebase project `rem404archive-01`.
+
+```bash
+firebase login
+firebase deploy --only hosting
+```
+
+The deployed site is available at:
+
+- https://rem404archive-01.web.app
+- https://rem404archive-01.firebaseapp.com
+
+The `firebase.json` file excludes repository metadata and applies immediate
+revalidation to HTML, JavaScript, and CSS so site updates appear promptly.
 
 ## Important security note
 

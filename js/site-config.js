@@ -3,7 +3,7 @@
 export const siteConfig = {
   siteId: "artist-archive-template",
   brand: "ART ARCHIVE",
-  version: "v1.0",
+  version: "v1.1.0",
 
   artist: {
     name: "작가 이름 / Artist Name",
