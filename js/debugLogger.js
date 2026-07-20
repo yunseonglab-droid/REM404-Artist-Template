@@ -1,4 +1,5 @@
 import { siteConfig, hasFirebaseConfiguration } from "./site-config.js";
+import { reportServiceError } from "./serviceMonitor.js";
 
 export async function logDebugError(code, detail = {}) {
   // A new artist template intentionally starts without Firebase credentials.
@@ -18,6 +19,11 @@ export async function logDebugError(code, detail = {}) {
   };
 
   console.warn(`[${siteConfig.brand} DEBUG]`, log);
+  void reportServiceError(code, {
+    message: detail.message || detail.error || code,
+    source: location.href,
+    ...detail
+  });
 
   try {
     const firebaseApi = await import("./firebase.js");
