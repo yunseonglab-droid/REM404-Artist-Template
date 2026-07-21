@@ -1,0 +1,38 @@
+name: REM404 전시 정보 동기화
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/10 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rem404-exhibition-config
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 저장소 받기
+        uses: actions/checkout@v4
+
+      - name: REM404 공개 설정 가져오기
+        run: node scripts/sync-exhibition-config.mjs
+        env:
+          REM404_PROJECT_ID: rem404
+          REM404_FIREBASE_API_KEY: AIzaSyAst32Rk5IYFyeRsps8aX-tnUqkdH2usUA
+
+      - name: 변경된 설정 커밋하기
+        run: |
+          if git diff --quiet -- js/exhibition-snapshot.js; then
+            echo "동기화할 변경 사항이 없습니다."
+            exit 0
+          fi
+          git config user.name "REM404 Sync"
+          git config user.email "rem404-sync@users.noreply.github.com"
+          git add js/exhibition-snapshot.js
+          git commit -m "전시 정보 자동 동기화"
+          git push

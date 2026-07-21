@@ -75,6 +75,14 @@ h1{
   margin-bottom:34px;
 }
 
+.period{
+  margin:-18px 0 30px;
+  color:#777;
+  font-size:12px;
+  line-height:1.6;
+  letter-spacing:.01em;
+}
+
 .notice{
   font-size:13px;
   line-height:1.7;
@@ -307,6 +315,8 @@ h1{
   새로운 장면이 천천히 나타납니다.
 </div>
 
+<div class="period" id="exhibitionPeriod" hidden></div>
+
 <div class="notice" id="landingNotice">
   이 경험은 스마트폰 카메라를 사용합니다.<br>
   별도의 앱 설치는 필요하지 않습니다.
@@ -325,7 +335,10 @@ h1{
 <script type="module">
 import { getText, getLanguage, setLanguage } from "./js/lang/language.js";
 import { siteConfig } from "./js/site-config.js";
+import { getExhibitionPeriodText, loadExhibitionConfig } from "./js/exhibition-config.js";
 import { saveUsageLog } from "./js/firebase.js";
+
+await loadExhibitionConfig();
   
 function applyLandingText() {
   const t = getText();
@@ -336,6 +349,10 @@ function applyLandingText() {
   document.getElementById("versionLabel").textContent = t.landing.version;
   document.getElementById("landingTitle").innerHTML = t.landing.title;
   document.getElementById("landingText").innerHTML = t.landing.text;
+  const exhibitionPeriod = document.getElementById("exhibitionPeriod");
+  const periodText = getExhibitionPeriodText(getLanguage());
+  exhibitionPeriod.textContent = periodText;
+  exhibitionPeriod.hidden = !periodText;
   document.getElementById("landingNotice").innerHTML = t.landing.notice;
   document.getElementById("startBtn").textContent = t.landing.startButton;
   document.getElementById("transitionVersion").textContent = t.landing.version;

@@ -1,9 +1,38 @@
-// Copy this template for each artist/exhibition, then change only this file
-// before publishing. Do not put secret server credentials in a GitHub Pages site.
+function inferExhibitionId() {
+  if (typeof location === "undefined") return "artist-archive-template";
+  const repositoryName = decodeURIComponent(location.pathname.split("/").filter(Boolean)[0] || "artist-archive-template");
+  return repositoryName
+    .trim()
+    .toLowerCase()
+    .replace(/\.git$/, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "") || "artist-archive-template";
+}
+
+// Every exhibition repository uses this same template. Public exhibition
+// metadata is managed in the REM404 app and loaded by js/exhibition-config.js.
 export const siteConfig = {
-  siteId: "artist-archive-template",
+  siteId: inferExhibitionId(),
   brand: "ART ARCHIVE",
-  version: "v1.1.0",
+  version: "v1.2.0",
+
+  platform: {
+    projectId: "rem404",
+    apiKey: "AIzaSyAst32Rk5IYFyeRsps8aX-tnUqkdH2usUA",
+    exhibitionId: inferExhibitionId()
+  },
+
+  exhibition: {
+    titleKo: "작품 제목",
+    titleEn: "Artwork Title",
+    descriptionKo: "",
+    descriptionEn: "",
+    status: "draft",
+    startAt: null,
+    endAt: null,
+    publicUrl: null,
+    updatedAt: null
+  },
 
   artist: {
     name: "작가 이름 / Artist Name",

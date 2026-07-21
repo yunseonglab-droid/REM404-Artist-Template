@@ -4,6 +4,9 @@ import { createHapticController } from "./haptic.js";
 import { getText } from "./lang/language.js";
 import { logDebugError } from "./debugLogger.js";
 import { siteConfig } from "./site-config.js";
+import { loadExhibitionConfig } from "./exhibition-config.js";
+
+await loadExhibitionConfig();
 
 const t = getText();
 
