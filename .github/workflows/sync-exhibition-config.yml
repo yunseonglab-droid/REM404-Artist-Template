@@ -3,7 +3,7 @@ name: REM404 전시 정보 동기화
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "*/5 * * * *"
 
 permissions:
   contents: write
@@ -27,12 +27,12 @@ jobs:
 
       - name: 변경된 설정 커밋하기
         run: |
-          if git diff --quiet -- js/exhibition-snapshot.js; then
+          if git diff --quiet -- js/exhibition-snapshot.js js/exhibition-snapshot.json; then
             echo "동기화할 변경 사항이 없습니다."
             exit 0
           fi
           git config user.name "REM404 Sync"
           git config user.email "rem404-sync@users.noreply.github.com"
-          git add js/exhibition-snapshot.js
+          git add js/exhibition-snapshot.js js/exhibition-snapshot.json
           git commit -m "전시 정보 자동 동기화"
           git push

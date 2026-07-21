@@ -22,8 +22,12 @@ and data.
 4. REM404 관리자 앱에서 `전시 등록하기`를 누르고 해당 QR 또는 GitHub Pages
    주소를 등록합니다. 작가 계정의 요청은 전체 관리자 승인 후 활성화됩니다.
 5. 이후 전시명, 영문명, 전시 기간과 설명은 REM404 앱에서 수정합니다.
-   관객 페이지는 Firebase의 공개 설정을 즉시 읽고, GitHub Actions가 10분마다
+   관객 페이지는 Firebase의 공개 설정을 즉시 읽고, GitHub Actions가 5분마다
    `js/exhibition-snapshot.js`에 마지막 설정을 자동 커밋합니다.
+
+전시 정보를 저장한 뒤에는 해당 버전의 GitHub 커밋이 확인될 때까지 앱의
+전시 정보 입력란이 잠깁니다. 앱은 `js/exhibition-snapshot.json`의 동기화
+버전을 확인하고 실제 커밋이 완료된 경우에만 편집을 다시 허용합니다.
 
 앱이나 정적 파일에 GitHub 개인 액세스 토큰을 넣지 마세요. 자동 커밋은 각
 저장소에 한정된 GitHub Actions의 `GITHUB_TOKEN`만 사용합니다.
@@ -58,6 +62,7 @@ secrets in this repository.
 | --- | --- |
 | REM404 connection and fallback settings | `js/site-config.js`, `js/exhibition-config.js` |
 | Automatically committed metadata snapshot | `js/exhibition-snapshot.js` |
+| App-safe commit verification snapshot | `js/exhibition-snapshot.json` |
 | Visitor landing page | `index.html` |
 | WebAR experience | `ar.html`, `js/ar.js` |
 | Firestore integration | `js/firebase.js` |
