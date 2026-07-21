@@ -25,9 +25,11 @@ and data.
    관객 페이지는 Firebase의 공개 설정을 즉시 읽고, GitHub Actions가 5분마다
    `js/exhibition-snapshot.js`에 마지막 설정을 자동 커밋합니다.
 
-전시 정보를 저장한 뒤에는 해당 버전의 GitHub 커밋이 확인될 때까지 앱의
-전시 정보 입력란이 잠깁니다. 앱은 `js/exhibition-snapshot.json`의 동기화
-버전을 확인하고 실제 커밋이 완료된 경우에만 편집을 다시 허용합니다.
+전시 정보는 Firebase를 통해 관객 페이지에 먼저 반영됩니다. GitHub 커밋은
+서비스 반영 조건이 아니라 장애 복구와 변경 기록을 위한 비차단 백업입니다.
+백업을 처리하는 동안에도 앱에서 계속 수정할 수 있으며, 여러 번 수정하면
+백업 실행 시점의 최신 상태가 하나의 스냅샷 커밋으로 저장됩니다. 앱은
+`js/exhibition-snapshot.json`의 동기화 버전을 확인해 백업 상태만 표시합니다.
 
 앱이나 정적 파일에 GitHub 개인 액세스 토큰을 넣지 마세요. 자동 커밋은 각
 저장소에 한정된 GitHub Actions의 `GITHUB_TOKEN`만 사용합니다.
