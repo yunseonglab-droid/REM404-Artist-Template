@@ -396,6 +396,9 @@ h1 {
 <script type="module">
 import { getAllMemories, getDebugLogs } from "./js/firebase.js";
 import { siteConfig } from "./js/site-config.js";
+import { loadExhibitionConfig } from "./js/exhibition-config.js";
+
+await loadExhibitionConfig();
   
 const ADMIN_PASSWORD = siteConfig.adminPassword;
 const AUTH_STORAGE_KEY = `${siteConfig.siteId}:adminAuth`;

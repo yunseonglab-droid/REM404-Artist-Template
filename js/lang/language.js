@@ -80,7 +80,27 @@ export function getLanguage() {
 }
 
 export function getText() {
-  return translations[currentLanguage] || translations[DEFAULT_LANGUAGE];
+  const translation = translations[currentLanguage] || translations[DEFAULT_LANGUAGE];
+  const exhibition = siteConfig.exhibition || {};
+  const title = currentLanguage === "en"
+    ? exhibition.titleEn || exhibition.titleKo
+    : exhibition.titleKo || exhibition.titleEn;
+  const description = currentLanguage === "en" ? exhibition.descriptionEn : exhibition.descriptionKo;
+  const escapeHtml = (value) => String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+  return {
+    ...translation,
+    landing: {
+      ...translation.landing,
+      pageTitle: title || translation.landing.pageTitle,
+      title: title || translation.landing.title,
+      text: description ? escapeHtml(description).replace(/\r?\n/g, "<br>") : translation.landing.text
+    }
+  };
 }
 
 export function setLanguage(language) {

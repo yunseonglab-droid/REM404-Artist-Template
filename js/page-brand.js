@@ -1,4 +1,7 @@
 import { siteConfig } from "./site-config.js";
+import { loadExhibitionConfig } from "./exhibition-config.js";
+
+await loadExhibitionConfig();
 
 document.title = document.title.replace("ART ARCHIVE", siteConfig.brand);
 

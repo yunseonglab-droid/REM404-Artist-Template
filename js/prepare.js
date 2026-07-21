@@ -1,4 +1,7 @@
 import { siteConfig } from "./site-config.js";
+import { loadExhibitionConfig } from "./exhibition-config.js";
+
+await loadExhibitionConfig();
 
 const params = new URLSearchParams(window.location.search);
 const lang = params.get("lang") || localStorage.getItem(`${siteConfig.siteId}:language`) || "ko";
