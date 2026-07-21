@@ -14,7 +14,7 @@ function inferExhibitionId() {
 export const siteConfig = {
   siteId: inferExhibitionId(),
   brand: "ART ARCHIVE",
-  version: "v1.1.0",
+  version: "v1.2.0",
 
   platform: {
     projectId: "rem404",
