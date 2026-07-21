@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 저장소 받기
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: REM404 공개 설정 가져오기
         run: node scripts/sync-exhibition-config.mjs
