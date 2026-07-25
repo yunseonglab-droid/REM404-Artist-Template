@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" class="config-loading">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -28,6 +28,20 @@ body{
 main{
   width:100%;
   max-width:420px;
+  opacity:1;
+  visibility:visible;
+  transition:opacity .24s cubic-bezier(.22,1,.36,1);
+}
+
+html.config-loading main{
+  opacity:0;
+  visibility:hidden;
+}
+
+@media (prefers-reduced-motion:reduce){
+  main{
+    transition:none;
+  }
 }
   
 #languageSelector{
@@ -299,7 +313,7 @@ h1{
 
 <!-- ===== Exhibition intro END ===== -->
   
-<main>
+<main aria-busy="true">
   <div id="languageSelector">
   <button type="button" data-lang="ko">KR</button>
   <button type="button" data-lang="en">EN</button>
@@ -371,6 +385,17 @@ document.querySelectorAll("#languageSelector button").forEach((button) => {
 });
 
 applyLandingText();
+
+const landingMain = document.querySelector("main");
+if (landingMain) {
+  landingMain.setAttribute("aria-busy", "false");
+}
+
+requestAnimationFrame(() => {
+  requestAnimationFrame(() => {
+    document.documentElement.classList.remove("config-loading");
+  });
+});
 
 saveUsageLog("landing_visit", {
   page: "index.html"
