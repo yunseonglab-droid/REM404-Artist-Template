@@ -1,14 +1,14 @@
 {
-  "startAt": null,
-  "titleEn": "REM404-Artist-Template",
-  "descriptionKo": "",
-  "updatedAt": "2026-07-25T23:19:48.562Z",
   "exhibitionId": "rem404-artist-template",
+  "endAt": null,
   "publicUrl": "https://yunseonglab-droid.github.io/REM404-Artist-Template/",
-  "titleKo": "REM404-Artist-Template",
-  "source": "githubPages",
   "descriptionEn": "",
+  "source": "githubPages",
+  "titleKo": "REM404-Artist-Template",
+  "titleEn": "REM404-Artist-Template",
+  "updatedAt": "2026-07-25T23:19:48.562Z",
   "status": "draft",
+  "descriptionKo": "",
   "slug": "rem404-artist-template",
-  "endAt": null
+  "startAt": null
 }
