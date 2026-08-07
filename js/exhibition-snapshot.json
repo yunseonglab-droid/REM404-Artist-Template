@@ -1,6 +1,6 @@
 {
-  "publicUrl": "https://rem404.com/e/rem404-artist-template",
   "publishedByName": "엄윤성",
+  "publicUrl": "https://rem404.com/e/rem404-artist-template",
   "startAt": null,
   "source": "rem404",
   "exhibitionId": "rem404-artist-template",
@@ -18,8 +18,8 @@
   "status": "published",
   "descriptionKo": "",
   "currentPublishedVersionId": "version-mseqkkek-735a7d",
-  "arBundleAssetUrl": "",
   "descriptionEn": "",
+  "arBundleAssetUrl": "",
   "arMode": "bundle",
   "artworks": null
 }
